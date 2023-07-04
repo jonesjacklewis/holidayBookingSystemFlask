@@ -1,0 +1,8 @@
+Hi {0},
+
+You have {1} holidays remaining.
+
+{2}
+
+Thanks,
+The Holiday Team
