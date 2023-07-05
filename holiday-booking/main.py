@@ -86,7 +86,7 @@ def reduce_remaining_holidays(email: str, days: int) -> Union[redirect, str]:
     # if POST request return 201 status code
     return '', 201
 
-@app.route('/reset_remaining_holidays/<email>')
+@app.route('/reset_remaining_holidays/<email>', methods=['GET', 'POST'])
 def reset_remaining_holidays(email: str) -> redirect:
     """Resets the remaining holidays for a user.
 
@@ -108,7 +108,12 @@ def reset_remaining_holidays(email: str) -> redirect:
     conn.commit()
     conn.close()
 
-    return redirect(url_for('get_remaining_holidays', email=email))
+    # if GET request redirect to /get_remaining_holidays/<email>
+    if request.method == 'GET':
+        return redirect(url_for('get_remaining_holidays', email=email))
+
+    # if POST request return 201 status code
+    return '', 201
 
 @app.route('/book_holiday/<email>/<date>', methods=['POST'])
 def book_holiday(email: str, date: str) -> Tuple[str]:
