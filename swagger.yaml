@@ -125,4 +125,79 @@ paths:
           description: 'No content'
         '404':
           description: 'User not found'
-      
+  /book_holiday/{email}/{date}:
+    post:
+      tags:
+        - user
+        - holidays
+      description: Books a day as a holiday
+      parameters:
+        - name: email
+          in: path
+          description: User email
+          required: true
+          schema:
+            type: string
+            example: 'test.user@domain.com'
+        - name: date
+          in: path
+          description: Date to book off
+          required: true
+          schema:
+            type: string
+            format: date
+            example: '2023-08-01'
+      responses:
+        '201':
+          description: 'No content'
+        '400':
+          description: 'database is locked'
+  /get_name/{email}:
+    get:
+      tags:
+        - user
+      description: Gets the username for a given email
+      parameters:
+        - name: email
+          in: path
+          description: User email
+          required: true
+          schema:
+            type: string
+            example: 'test.user@domain.com'
+      responses:
+        '200':
+          description: Username of email
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: testuser
+        '404':
+          description: User not found
+  /get_holidays/{email}:
+    get:
+      tags:
+        - user
+        - holidays
+      description: Get all holidays booked for a given email
+      parameters:
+        - name: email
+          in: path
+          description: User email
+          required: true
+          schema:
+            type: string
+            example: 'test.user@domain.com'
+      responses:
+        '200':
+          description: Username of email
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: date
+        '404':
+          description: User not found
