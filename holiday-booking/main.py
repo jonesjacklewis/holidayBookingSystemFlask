@@ -209,7 +209,7 @@ def get_holidays(email: str) -> str:
 
     conn.close()
 
-    return str(holidays)
+    return holidays
 
 # run app
 if __name__ == '__main__':
