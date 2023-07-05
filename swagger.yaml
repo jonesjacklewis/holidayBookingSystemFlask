@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: Holiday Booking API
+  description: |-
+    This is documentation for an endpoint to book holidays.
+    
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:5000
+tags:
+  - name: holidays
+    description: Everything about booking holidays
+  - name: user
+    description: Operations about user
+paths:
+  /get_remaining_holidays/{email}:
+    get:
+      tags:
+        - user
+        - holidays
+      description: Get remaining holidays for a user
+      parameters:
+        - name: email
+          in: path
+          description: User email
+          required: true
+          schema:
+            type: string
+            example: 'test.user@domain.com'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: integer
+                example: 27
+        '404':
+          description: User not found
+  /reduce_remaining_holidays/{email}/{days}:
+    get:
+      tags:
+        - user
+        - holidays
+      description: Reduces a users remaining holidays by X days
+      parameters:
+        - name: email
+          in: path
+          description: User email
+          required: true
+          schema:
+            type: string
+            example: 'test.user@domain.com'
+        - name: days
+          in: path
+          description: Number of days to reduce the users holidays by
+          required: true
+          schema:
+            type: integer
+            example: 2
+      responses:
+        '302':
+          description: 'redirect user to /get_remaining_holidays/{email}'
+        '404':
+          description: 'User not found'
+    post:
+      tags:
+        - user
+        - holidays
+      description: Reduces a users remaining holidays by X days
+      parameters:
+        - name: email
+          in: path
+          description: User email
+          required: true
+          schema:
+            type: string
+            example: 'test.user@domain.com'
+        - name: days
+          in: path
+          description: Number of days to reduce the users holidays by
+          required: true
+          schema:
+            type: integer
+            example: 2
+      responses:
+        '201':
+          description: 'No content'
+        '404':
+          description: 'User not found'
+  /reset_remaining_holidays/{email}:
+    get:
+      tags:
+        - user
+        - holidays
+      description: Resets users holiday allowance to default
+      parameters:
+        - name: email
+          in: path
+          description: User email
+          required: true
+          schema:
+            type: string
+            example: 'test.user@domain.com'
+      responses:
+        '302':
+          description: 'redirect user to /get_remaining_holidays/{email}'
+        '404':
+          description: 'User not found'
+    post:
+      tags:
+        - user
+        - holidays
+      description: Resets users holiday allowance to default
+      parameters:
+        - name: email
+          in: path
+          description: User email
+          required: true
+          schema:
+            type: string
+            example: 'test.user@domain.com'
+      responses:
+        '201':
+          description: 'No content'
+        '404':
+          description: 'User not found'
+      
